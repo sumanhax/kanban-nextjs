@@ -9,21 +9,24 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-async headers() {
+
+  async headers() {
     return [
       {
-        // Apply CORS headers to all routes
-        source: "/(.*)",
+        source: "/(.*)", // applies to all routes
         headers: [
           { key: "Access-Control-Allow-Credentials", value: "true" },
-          { key: "Access-Control-Allow-Origin", value: "*" },
+          {
+            key: "Access-Control-Allow-Origin",
+            // allow only these origins
+            value: "https://showmecustomheadwear.stackerhq.com",
+          },
           { key: "Access-Control-Allow-Methods", value: "GET,OPTIONS,PATCH,DELETE,POST,PUT" },
           { key: "Access-Control-Allow-Headers", value: "X-Requested-With, Content-Type, Authorization" },
         ],
       },
     ];
   },
+};
 
-}
-
-export default nextConfig
+export default nextConfig;
