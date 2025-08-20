@@ -13,16 +13,12 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/(.*)", // applies to all routes
+        source: "/(.*)",
         headers: [
-          { key: "Access-Control-Allow-Credentials", value: "true" },
-          {
-            key: "Access-Control-Allow-Origin",
-            // allow only these origins
-            value: "https://showmecustomheadwear.stackerhq.com",
-          },
-          { key: "Access-Control-Allow-Methods", value: "GET,OPTIONS,PATCH,DELETE,POST,PUT" },
-          { key: "Access-Control-Allow-Headers", value: "X-Requested-With, Content-Type, Authorization" },
+          // Remove frame restrictions
+          { key: "X-Frame-Options", value: "ALLOWALL" }, 
+          // Or use CSP instead of ALLOWALL (more modern)
+          { key: "Content-Security-Policy", value: "frame-ancestors *" },
         ],
       },
     ];
