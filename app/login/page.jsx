@@ -1,6 +1,7 @@
 'use client'
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -11,9 +12,19 @@ export default function LoginScreen() {
   const handleProceed = (e) => {
     e.preventDefault();
     // Handle login logic here (API call, validation, etc)
-    // alert(`Email: ${email}\nPassword: ${password}`);
-    router.push(`/login/${email}`);
-    
+    // alert(`Email: ${email}\nPassword: ${password}`);  
+    axios.post('https://n8nnode.bestworks.cloud/webhook/login-rep', {email:email}).then((res) => {
+      console.log("res", res);
+      if(res.status==200){
+        router.push(`/login/${encodeURIComponent(email)}`);
+      }else{
+        alert('Email not found')
+      }
+    })
+      .catch((err) => {
+        console.log("err", err);
+         alert('Email not found')
+      });
   };
 
   return (
